@@ -67,6 +67,9 @@ public:
                 current_num += power;
             }
             float final_num = sqrt(current_num / cols);
+            if (final_num == 0.0f) {
+                final_num = 1e-6;
+            }
             my_std.push_back(final_num);
         }
 
@@ -78,7 +81,19 @@ public:
         int rows = array.size();
         int cols = array[0].size();
 
+        printf("\nrow: %i | col: %i\n", rows, cols);
 
+        for (int row = 0; row < rows; row++) {
+            vec1<float> values;
+            for (int col = 0; col < cols; col++) {
+                printf("mean: %f | std: %f \n", array_mean[row], array_std[row]);
+                float value = (array[row][col] - array_mean[row]) / array_std[row];
+                printf("value: %f\n", array[row][col] - array_mean[row]);
+                values.push_back(value);
+            }
+            my_norm.push_back(values);
+            printf("\n");
+        }
         
         return my_norm;
     }
@@ -88,18 +103,7 @@ public:
     Normalize normalize(vec2<float> input_array, vec2<float> output_array) { 
 
         vec1<float> input_mean = DL::mean(input_array);
-        printf("input mean: ");
-        for (int i = 0; i < input_mean.size(); i++)
-            printf(" %f ", input_mean[i]);
-        printf("\n");
-
         vec1<float> input_std = DL::std(input_array);
-
-        printf("input std: ");
-        for (int i = 0; i < input_std.size(); i++)
-            printf(" %f ", input_std[i]);
-        printf("\n");
-
         vec2<float> input_norm = DL::norm(input_array, input_mean, input_std);
 
         vec1<float> output_mean = DL::mean(output_array);
