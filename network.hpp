@@ -25,9 +25,9 @@ private:
     vec3<float> random_array(int items, int rows, int cols);
 
     // Forward + Backward + Update
-    //ZAStorage forward(Matrix matrix, Normalize norm);
-    //DeltaStorage backward(Matrix matrix, ZAStorage za_storage);
-    //Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
+    ZAStorage forward(Matrix matrix, Normalize norm);
+    DeltaStorage backward(Matrix matrix, ZAStorage za_storage);
+    Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
 
     // Sigmoid
     vec2<float> sigmoid(vec2<float> array);
@@ -37,41 +37,12 @@ private:
     vec2<float> relu(vec2<float> array);
     vec2<float> deriv_relu(vec2<float> array);
 
+    // Math
+    vec2<float> dot(vec2<float> array1, vec2<float> array2);
+
 public:
 
-    vec2<float> multi_add(vec2<float> multi1, vec2<float> multi2, vec1<float> add1) {
-        vec2<float> my_array;
-        int rows = multi1.size();
-        int cols = multi1[0].size();
 
-        for (int row = 0; row < rows; row++) {
-            vec1<float> array_slice;
-            for (int col = 0; col < cols; col++) {
-                float result = multi1[row][col] * multi2[row][col] + add1[row];
-                array_slice.push_back(result);
-            }
-            my_array.push_back(array_slice);
-        }
-
-        return my_array;
-    }
-
-    vec2<float> t(vec2<float> array) {
-        vec2<float> my_array;
-        int rows = array.size();
-        int cols = array[0].size();
-
-        for (int col = 0; col < cols; col++) {
-            vec1<float> slice;
-            for (int row = 0; row < rows; row++) {
-                float item = array[row][col];
-                slice.push_back(item);
-            }
-            my_array.push_back(slice);
-        }
-        
-        return my_array;
-    }
 
     Normalize normalize(vec2<float> input_array, vec2<float> output_array) { 
 
@@ -116,36 +87,36 @@ public:
         return my_matrix;
     }
 
-    //TrainingData training(int iterations, float learning_rate, Dimension dim, Matrix matrix, Normalize norm) {
+    TrainingData training(int iterations, float learning_rate, Dimension dim, Matrix matrix, Normalize norm) {
 
-    //    for (int iter = 0; iter <= iterations; iter++) {
-    //        if (iter % 1000 == 0) {
-    //            printf("%f%", round(iter / iterations * 100.0f));
-    //        }
+        for (int iter = 0; iter <= iterations; iter++) {
+            if (iter % 1000 == 0) {
+                printf("%f%", round(iter / iterations * 100.0f));
+            }
 
-    //        ZAStorage za_storage = forward(matrix, norm);
-    //        DeltaStorage delta_storage = backward(matrix, za_storage);
-    //        matrix = update_matrix(matrix, za_storage, delta_storage);
-    //        
-    //    }
+            ZAStorage za_storage = forward(matrix, norm);
+            DeltaStorage delta_storage = backward(matrix, za_storage);
+            matrix = update_matrix(matrix, za_storage, delta_storage);
+            
+        }
 
-    //    vec2<float> x_mean = norm.input_mean;
-    //    vec2<float> x_std = norm.input_std;
-    //    vec2<float> y_mean = norm.output_mean;
-    //    vec2<float> y_std = norm.output_std; 
-    //    TrainingNorm t_norm = TrainingNorm {
-    //        x_mean,
-    //        x_std,
-    //        y_mean,
-    //        y_std,
-    //    };
-    //    TrainingData final_data = TrainingData {
-    //        matrix,
-    //        t_norm,
-    //        dim,
-    //    };
-    //    return final_data;
-    //}
+        vec1<float> x_mean = norm.input_mean;
+        vec1<float> x_std = norm.input_std;
+        vec1<float> y_mean = norm.output_mean;
+        vec1<float> y_std = norm.output_std; 
+        TrainingNorm t_norm = TrainingNorm {
+            x_mean,
+            x_std,
+            y_mean,
+            y_std,
+        };
+        TrainingData final_data = TrainingData {
+            matrix,
+            t_norm,
+            dim,
+        };
+        return final_data;
+    }
 
 };
 

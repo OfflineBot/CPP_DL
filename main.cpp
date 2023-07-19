@@ -5,6 +5,8 @@
 #include "network.hpp"
 #include "./network/matrix.hpp"
 #include "./network/norm.hpp"
+#include "./math/t.hpp"
+#include "./math/dot.hpp"
 
 int main() {
 
@@ -37,8 +39,8 @@ int main() {
         1.0f, 2.0f, 7.0f
     };
     printf("finished\nprinting tests: \n");
-    vec2<float> dot_prod = testing.multi_add(test_vec, test_vec, test_vec_1);
-    vec2<float> flip = testing.t(test_vec1);
+    vec2<float> dot_prod = multi_add(test_vec, test_vec, test_vec_1);
+    vec2<float> flip = t(test_vec1);
 
     printf("flip\n");
     printf("size: (%i %i) | size: (%i %i)\n", test_vec1.size(), test_vec1[0].size(), flip.size(), flip[0].size());
