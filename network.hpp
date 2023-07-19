@@ -5,9 +5,9 @@
 #include <random>
 #include <cmath>
 
-#include "structs/norm_struct.h"
-#include "structs/matrix_struct.h"
-#include "structs/learning_struct.h"
+#include "structs/norm_struct.hpp"
+#include "structs/matrix_struct.hpp"
+#include "structs/learning_struct.hpp"
 
 using namespace std;
 

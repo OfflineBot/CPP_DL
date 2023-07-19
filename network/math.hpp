@@ -1,4 +1,4 @@
-#include "../network.h"
+#include "../network.hpp"
 
 vec2<float> DL::dot(vec2<float> array1, vec2<float> array2) {
     int rows = array1.size();

@@ -1,4 +1,4 @@
-#include "../network.h"
+#include "../network.hpp"
 
 typedef struct {
     vec1<float> x_mean;

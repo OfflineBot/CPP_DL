@@ -1,5 +1,5 @@
 #include <random>
-#include "../network.h"
+#include "../network.hpp"
 
 using namespace std;
 vec1<float> DL::random_array(int cols) {

@@ -1,4 +1,4 @@
-#include "../network.h"
+#include "../network.hpp"
 #include <cmath>
 
 vec2<float> sigmoid(vec2<float> array) {

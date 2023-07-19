@@ -1,4 +1,4 @@
-#include "../network.h"
+#include "../network.hpp"
 
 typedef struct {
     vec2<float> w1;

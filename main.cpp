@@ -2,9 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <iterator>
-#include "network.h"
-#include "./network/matrix.h"
-#include "./network/norm.h"
+#include "network.hpp"
+#include "./network/matrix.hpp"
+#include "./network/norm.hpp"
 
 int main() {
 

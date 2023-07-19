@@ -1,4 +1,4 @@
-#include "../network.h"
+#include "../network.hpp"
 
 vec1<float> DL::mean(vec2<float> array) {
     int rows = array.size();
