@@ -34,7 +34,7 @@ private:
 
     // Forward + Backward + Update
     ZAStorage forward(Matrix matrix, Normalize norm);
-    DeltaStorage backward(ZAStorage za_storage, Matrix matrix);
+    DeltaStorage backward(Matrix matrix, ZAStorage za_storage);
     Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
 
     // Math
@@ -102,7 +102,7 @@ public:
             }
 
             ZAStorage za_storage = forward(matrix, norm);
-            DeltaStorage delta_storage = backward(za_storage, matrix);
+            DeltaStorage delta_storage = backward(matrix, za_storage);
             matrix = update_matrix(matrix, za_storage, delta_storage);
             
         }
