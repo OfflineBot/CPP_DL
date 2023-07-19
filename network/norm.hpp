@@ -1,3 +1,4 @@
+#include "../types/vec_type.hpp"
 #include "../network.hpp"
 
 vec1<float> DL::mean(vec2<float> array) {

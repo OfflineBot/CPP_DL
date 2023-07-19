@@ -1,3 +1,4 @@
+#include "../types/vec_type.hpp"
 #include "../network.hpp"
 
 vec2<float> DL::dot(vec2<float> array1, vec2<float> array2) {

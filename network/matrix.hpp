@@ -1,4 +1,5 @@
 #include <random>
+#include "../types/vec_type.hpp"
 #include "../network.hpp"
 
 using namespace std;

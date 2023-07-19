@@ -1,3 +1,4 @@
+#include "../types/vec_type.hpp"
 #include "../network.hpp"
 
 typedef struct
