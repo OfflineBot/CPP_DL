@@ -1,4 +1,5 @@
 #include "../network.h"
+#include "activation.h"
 
 ZAStorage DL::forward(Matrix matrix, Normalize norm) {
 
