@@ -34,7 +34,21 @@ vec2<float> deriv_sigmoid(vec2<float> array) {
 
 
 vec2<float> relu(vec2<float> array) {
+    int rows = array.size();
+    int cols = array[0].size();
 
+    vec2<float> my_relu;
+
+    for (int row = 0; row < rows; row++) {
+        vec1<float> array_slice;
+        for (int col = 0; col < cols; col++) {
+            float item = array[row][col] < 0.0 ? 0.0f : array[row][col];
+            array_slice.push_back(item);
+        }
+        my_relu.push_back(array_slice);
+    }
+
+    return my_relu;
 }
 
 vec2<float> deriv_relu(vec2<float> array) {
