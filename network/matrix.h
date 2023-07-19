@@ -2,7 +2,7 @@
 #include "../network.h"
 
 using namespace std;
-vec1<float> DL::zero_array1(int cols) {
+vec1<float> DL::random_array(int cols) {
     vec1<float> my_vec;
     random_device rand_dev;
     mt19937 generator(rand_dev());
@@ -14,7 +14,7 @@ vec1<float> DL::zero_array1(int cols) {
     return my_vec;
 }
 
-vec2<float> DL::zero_array2(int rows, int cols) {
+vec2<float> DL::random_array(int rows, int cols) {
     vec2<float> my_vec2;
     random_device rand_dev;
     mt19937 generator(rand_dev());
@@ -30,7 +30,7 @@ vec2<float> DL::zero_array2(int rows, int cols) {
     return my_vec2;
 }
 
-vec3<float> DL::zero_array3(int items, int rows, int cols) {
+vec3<float> DL::random_array(int items, int rows, int cols) {
     vec3<float> my_vec3;
     random_device rand_dev;
     mt19937 generator(rand_dev());

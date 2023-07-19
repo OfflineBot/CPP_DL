@@ -5,6 +5,9 @@
 #include <random>
 #include <cmath>
 
+#include "structs/norm_struct.h"
+#include "structs/matrix_struct.h"
+#include "structs/learning_struct.h"
 
 using namespace std;
 
@@ -15,27 +18,6 @@ using vec2 = vector<vec1<T>>;
 template<typename T>
 using vec3 = vector<vec2<T>>;
 
-typedef struct
-{
-    vec2<float> input;
-    vec1<float> input_mean;
-    vec1<float> input_std;
-    vec2<float> input_norm;
-
-    vec2<float> output;
-    vec1<float> output_mean;
-    vec1<float> output_std;
-    vec2<float> output_norm;
-} Normalize;
-
-typedef struct {
-    vec2<float> w1;
-    vec1<float> b1;
-    vec3<float> w;
-    vec2<float> b;
-    vec2<float> w2;
-    vec1<float> b2;
-} Matrix;
 
 class DL {
 private:
@@ -44,9 +26,9 @@ private:
     vec1<float> std(vec2<float> array);
     vec2<float> norm(vec2<float> array, vec1<float> input_mean, vec1<float> input_std);
 
-    vec1<float> zero_array1(int cols);
-    vec2<float> zero_array2(int rows, int cols);
-    vec3<float> zero_array3(int items, int rows, int cols);
+    vec1<float> random_array(int cols);
+    vec2<float> random_array(int rows, int cols);
+    vec3<float> random_array(int items, int rows, int cols);
 
 public:
 
@@ -73,8 +55,33 @@ public:
         return data;
     }
 
-    Matrix init_matrix(int input_layer_size, int hidden_layer_size, int output_layer_size, int hidden_layers) {
+    Matrix init_matrix(Dimension dim) {
 
+        vec2<float> w1 = random_array(dim.input_layer_size, dim.hidden_layer_size);
+        vec1<float> b1 = random_array(dim.hidden_layer_size);
+        vec3<float> w = random_array(dim.hidden_layers, dim.hidden_layer_size, dim.hidden_layer_size);
+        vec2<float> b = random_array(dim.hidden_layers, dim.hidden_layer_size);
+        vec2<float> w2 = random_array(dim.hidden_layer_size, dim.output_layer_size);
+        vec1<float> b2 = random_array(dim.output_layer_size);
+
+        Matrix my_matrix = Matrix {
+                w1,
+                b1,
+                w,
+                b,
+                w2,
+                b2, 
+        };
+        return my_matrix;
+    }
+
+    TrainingData training(int iterations, float learning_rate, Dimension dim, Matrix matrix, Normalize norm) {
+
+        for (int iter = 0; iter <= iterations; iter++) {
+            if (iter % 1000 == 0) {
+                printf("%f%", round(iter / iterations * 100.0f));
+            }
+        }
     }
 
 };
