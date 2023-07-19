@@ -22,13 +22,32 @@ using vec3 = vector<vec2<T>>;
 class DL {
 private:
 
+    // normalize
     vec1<float> mean(vec2<float> array);
     vec1<float> std(vec2<float> array);
     vec2<float> norm(vec2<float> array, vec1<float> input_mean, vec1<float> input_std);
 
+    // fill array
     vec1<float> random_array(int cols);
     vec2<float> random_array(int rows, int cols);
     vec3<float> random_array(int items, int rows, int cols);
+
+    // Forward + Backward + Update
+    ZAStorage forward(Matrix matrix, Normalize norm);
+    DeltaStorage backward(ZAStorage za_storage, Matrix matrix);
+    Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
+
+    // Math
+    vec2<float> t(vec2<float> array);
+    vec2<float> dot(vec2<float> array1, vec2<float> array2);
+
+    // Sigmoid
+    vec2<float> sigmoid(vec2<float> array);
+    vec2<float> deriv_sigmoid(vec2<float> array);
+
+    // Relu
+    vec2<float> relu(vec2<float> array);
+    vec2<float> deriv_relu(vec2<float> array);
 
 public:
 
@@ -81,7 +100,29 @@ public:
             if (iter % 1000 == 0) {
                 printf("%f%", round(iter / iterations * 100.0f));
             }
+
+            ZAStorage za_storage = forward(matrix, norm);
+            DeltaStorage delta_storage = backward(za_storage, matrix);
+            matrix = update_matrix(matrix, za_storage, delta_storage);
+            
         }
+
+        vec2<float> x_mean = norm.input_mean;
+        vec2<float> x_std = norm.input_std;
+        vec2<float> y_mean = norm.output_mean;
+        vec2<float> y_std = norm.output_std; 
+        TrainingNorm t_norm = TrainingNorm {
+            x_mean,
+            x_std,
+            y_mean,
+            y_std,
+        };
+        TrainingData final_data = TrainingData {
+            matrix,
+            t_norm,
+            dim,
+        };
+        return final_data;
     }
 
 };
