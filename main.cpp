@@ -1,8 +1,10 @@
+
 #include <iostream>
 #include <vector>
 #include <iterator>
 #include "network.h"
-
+#include "./network/matrix.h"
+#include "./network/norm.h"
 
 int main() {
 
@@ -20,6 +22,7 @@ int main() {
 
     Normalize data = testing.normalize(test_vec, test_vec1);
 
+    // printing out normalized input
     vec2<float> my_norm1 = data.input_norm;
     for (int i = 0; i < my_norm1.size(); i++) {
         for (int j = 0; j < my_norm1[0].size(); j++)
@@ -27,5 +30,6 @@ int main() {
         printf("\n");
     }
     printf("\n");
+
     return 0;
 }

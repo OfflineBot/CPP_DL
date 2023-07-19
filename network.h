@@ -1,6 +1,10 @@
+#ifndef NETWORK_H
+#define NETWORK_H
+
 #include <vector>
 #include <random>
 #include <cmath>
+
 
 using namespace std;
 
@@ -34,72 +38,18 @@ typedef struct {
 } Matrix;
 
 class DL {
-    // ---------- SHOULD BE PRIVATE ------------
-public:
+private:
 
-    vec1<float> mean(vec2<float> array) {
-        int rows = array.size();
-        int cols = array[0].size();
-        vec1<float> my_mean;
+    vec1<float> mean(vec2<float> array);
+    vec1<float> std(vec2<float> array);
+    vec2<float> norm(vec2<float> array, vec1<float> input_mean, vec1<float> input_std);
 
-        for (int row = 0; row < rows; row++) {
-            float current_num = 0;
-            for (int col = 0; col < cols; col++) {
-                current_num += array[row][col];
-            }
-            my_mean.push_back(current_num / cols);
-        }
-
-        return my_mean; 
-    }
-
-    vec1<float> std(vec2<float> array) {
-        int rows = array.size();
-        int cols = array[0].size();
-
-        vec1<float> my_std;
-        vec1<float> my_mean = DL::mean(array);
-
-        for (int row = 0; row < rows; row++) {
-            float current_num = 0;
-            for (int col = 0; col < cols; col++) {
-                float power = pow(array[row][col] - my_mean[row], 2.0);
-                current_num += power;
-            }
-            float final_num = sqrt(current_num / cols);
-            if (final_num == 0.0f) {
-                final_num = 1e-6;
-            }
-            my_std.push_back(final_num);
-        }
-
-        return my_std;
-    }
-    vec2<float> norm(vec2<float> array, vec1<float> array_mean, vec1<float> array_std) {
-        vec2<float> my_norm;
-
-        int rows = array.size();
-        int cols = array[0].size();
-
-        printf("\nrow: %i | col: %i\n", rows, cols);
-
-        for (int row = 0; row < rows; row++) {
-            vec1<float> values;
-            for (int col = 0; col < cols; col++) {
-                printf("mean: %f | std: %f \n", array_mean[row], array_std[row]);
-                float value = (array[row][col] - array_mean[row]) / array_std[row];
-                printf("value: %f\n", array[row][col] - array_mean[row]);
-                values.push_back(value);
-            }
-            my_norm.push_back(values);
-            printf("\n");
-        }
-        
-        return my_norm;
-    }
-
+    vec1<float> zero_array1(int cols);
+    vec2<float> zero_array2(int rows, int cols);
+    vec3<float> zero_array3(int items, int rows, int cols);
 
 public:
+
     Normalize normalize(vec2<float> input_array, vec2<float> output_array) { 
 
         vec1<float> input_mean = DL::mean(input_array);
@@ -123,4 +73,10 @@ public:
         return data;
     }
 
+    Matrix init_matrix(int input_layer_size, int hidden_layer_size, int output_layer_size, int hidden_layers) {
+
+    }
+
 };
+
+#endif
