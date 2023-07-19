@@ -26,7 +26,7 @@ private:
 
     // Forward + Backward + Update
     ZAStorage forward(Matrix matrix, Normalize norm);
-    DeltaStorage backward(Matrix matrix, ZAStorage za_storage);
+    DeltaStorage backward(Matrix matrix, ZAStorage za_storage, Normalize norm);
     Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
 
     // Sigmoid

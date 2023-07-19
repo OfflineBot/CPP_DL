@@ -3,6 +3,7 @@
 #include "activation.hpp"
 #include "../math/dot.hpp"
 #include "../math/t.hpp"
+#include "../math/multiply.hpp"
 
 ZAStorage DL::forward(Matrix matrix, Normalize norm) {
     int layers = matrix.b.size();
@@ -33,9 +34,9 @@ ZAStorage DL::forward(Matrix matrix, Normalize norm) {
     return storage;
 }
 
-DeltaStorage DL::backward(Matrix matrix, ZAStorage za_storage) {
+DeltaStorage DL::backward(Matrix matrix, ZAStorage za_storage, Normalize norm) {
     int layers = matrix.b.size();
-    vec2<float> delta2;
+    vec2<float> delta2 = multiply(dot(norm.output_norm, t(za_storage.z2)), deriv_sigmoid(za_storage.z2));
     vec3<float> delta;
 
     vec2<float> last_delta = delta2;
