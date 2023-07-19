@@ -1,6 +1,8 @@
 #include "../types/vec_type.hpp"
 #include "../network.hpp"
 #include "activation.hpp"
+#include "../math/dot.hpp"
+#include "../math/t.hpp"
 
 ZAStorage DL::forward(Matrix matrix, Normalize norm) {
     int layers = matrix.b.size();

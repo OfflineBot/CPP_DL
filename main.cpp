@@ -25,8 +25,8 @@ int main() {
 
     Normalize data = testing.normalize(test_vec, test_vec1);
 
+    // ------- FROM HERE ONLY TESTING ----------
     // printing out normalized input
-
     vec2<float> my_norm1 = data.input_norm;
     for (int i = 0; i < my_norm1.size(); i++) {
         for (int j = 0; j < my_norm1[0].size(); j++)
@@ -57,6 +57,7 @@ int main() {
             printf("%f, ", dot_prod[i][j]);
         printf("\n");
     }
+    // ----------- END TESTING ---------------
 
     return 0;
 }

@@ -12,7 +12,7 @@ vec2<float> dot(vec2<float> array1, vec2<float> array2) {
             my_dot1.push_back(data);
         }
         my_dot.push_back(my_dot1);
-    } 
+    }
 
     return my_dot;
 }
