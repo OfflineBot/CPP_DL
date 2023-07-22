@@ -26,8 +26,8 @@ private:
 
     // Forward + Backward + Update
     ZAStorage forward(Matrix matrix, Normalize norm);
-    DeltaStorage backward(Matrix matrix, ZAStorage za_storage, Normalize norm);
-    Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage);
+    DeltaStorage backward(Matrix &matrix, ZAStorage &za_storage, Normalize &norm);
+    Matrix update_matrix(Matrix matrix, ZAStorage za_storage, DeltaStorage delta_storage, Normalize norm, float learning_rate);
 
     // Sigmoid
     vec2<float> sigmoid(vec2<float> array);
@@ -95,8 +95,8 @@ public:
             }
 
             ZAStorage za_storage = forward(matrix, norm);
-            DeltaStorage delta_storage = backward(matrix, za_storage);
-            matrix = update_matrix(matrix, za_storage, delta_storage);
+            DeltaStorage delta_storage = backward(matrix, za_storage, norm);
+            matrix = update_matrix(matrix, za_storage, delta_storage, norm, learning_rate);
             
         }
 
